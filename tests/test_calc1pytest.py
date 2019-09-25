@@ -33,22 +33,29 @@ def getresults():
     displaytext = displaytext.lstrip(' ')
     return displaytext
 
+class TestClass:
 
-def test_1addition():
-    # driver.find_element_by_name("Wyczyść wpis").click()
-    driver.find_element_by_name("Jeden").click()
-    driver.find_element_by_name("Plus").click()
-    driver.find_element_by_name("Dwa").click()
-    driver.find_element_by_name("Równa się").click()
-    assert getresults() == "3", "test failed"
+    def test_1addition(self):
+        driver.find_element_by_name("Jeden").click()
+        driver.find_element_by_name("Plus").click()
+        driver.find_element_by_name("Dwa").click()
+        driver.find_element_by_name("Równa się").click()
+        assert getresults() == "3", "test failed"
 
-def test_2addition():
-    # driver.find_element_by_name("Wyczyść wpis").click()
-    driver.find_element_by_name("Jeden").click()
-    driver.find_element_by_name("Plus").click()
-    driver.find_element_by_name("Trzy").click()
-    driver.find_element_by_name("Równa się").click()
-    assert getresults() == "4", "test failed"
+    def test_2addition(self):
+        driver.find_element_by_name("Jeden").click()
+        driver.find_element_by_name("Plus").click()
+        driver.find_element_by_name("Trzy").click()
+        driver.find_element_by_name("Równa się").click()
+        assert getresults() == "4", "test failed"
+
+    def test_3addition(self):
+        # fail test
+        driver.find_element_by_name("Jeden").click()
+        driver.find_element_by_name("Plus").click()
+        driver.find_element_by_name("Jeden").click()
+        driver.find_element_by_name("Równa się").click()
+        assert getresults() == "4", "test failed"
 
 
 
