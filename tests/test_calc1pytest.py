@@ -1,3 +1,6 @@
+import random
+import time
+
 import pytest
 from appium import webdriver
 
@@ -15,6 +18,14 @@ def teardown_module(module):
 desired_caps = {}
 desired_caps["app"] = "Microsoft.WindowsCalculator_8wekyb3d8bbwe!App"
 driver = webdriver.Remote(command_executor='http://127.0.0.1:4723',desired_capabilities=desired_caps)
+
+# other setup
+delay = 1
+wName = "Tola" + str(random.randint(1,10000))
+wSurname = "Testerka" + str(random.randint(1,10000))
+mName = "Tadek" + str(random.randint(1,10000))
+mSurname = "Tester" + str(random.randint(1,10000))
+
 
 @pytest.fixture(autouse=True)
 def run_around_tests():
@@ -36,11 +47,13 @@ def getresults():
 class TestClass:
 
     def test_1addition(self):
+        print("\n", wName, wSurname, "\t", mName, mSurname, "\n")
         driver.find_element_by_name("Jeden").click()
         driver.find_element_by_name("Plus").click()
         driver.find_element_by_name("Dwa").click()
         driver.find_element_by_name("Równa się").click()
         assert getresults() == "3", "test failed"
+        time.sleep(delay)
 
     def test_2addition(self):
         driver.find_element_by_name("Jeden").click()
@@ -48,6 +61,7 @@ class TestClass:
         driver.find_element_by_name("Trzy").click()
         driver.find_element_by_name("Równa się").click()
         assert getresults() == "4", "test failed"
+        time.sleep(delay)
 
     def test_3addition(self):
         # fail test
@@ -56,6 +70,7 @@ class TestClass:
         driver.find_element_by_name("Jeden").click()
         driver.find_element_by_name("Równa się").click()
         assert getresults() == "4", "test failed"
+        time.sleep(delay)
 
 
 
