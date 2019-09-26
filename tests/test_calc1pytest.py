@@ -21,11 +21,36 @@ driver = webdriver.Remote(command_executor='http://127.0.0.1:4723',desired_capab
 
 # other setup
 delay = 1
-wName = "Tola" + str(random.randint(1,10000))
-wSurname = "Testerka" + str(random.randint(1,10000))
-mName = "Tadek" + str(random.randint(1,10000))
-mSurname = "Tester" + str(random.randint(1,10000))
+wName = "Tola" + str(random.randint(1, 1000))
+wSurname = "Testerka" + str(random.randint(1, 1000))
+mName = "Tadek" + str(random.randint(1, 1000))
+mSurname = "Tester" + str(random.randint(1, 1000))
 
+def randomPesel(gender):
+    # birth date
+    p1 = random.randint(3, 9)
+    p2 = random.randint(0, 9)
+    p3 = random.randint(0, 2)
+    p4 = random.randint(1, 9)
+    p5 = random.randint(0, 1)
+    p6 = random.randint(1, 7)
+    pesel = str(p1) + str(p2) + str(p3) + str(p4) + str(p5) + str(p6)
+    # + random number 000 - 999
+    p7 = random.randint(0, 9)
+    p8 = random.randint(0, 9)
+    p9 = random.randint(0, 9)
+    pesel = pesel + str(p7) + str(p8) + str(p9)
+    # + gender
+    if gender == "w":
+        items = [0, 2, 4, 6, 8]
+    else:
+        items = [1, 3, 5, 7, 9]
+    p10 = items[random.randrange(len(items))]
+    pesel = pesel + str(p10)
+    p11 = (9 * p1) + (7 * p2) + (3 * p3) + (1 * p4) + (9 * p5) + (7 * p6) + (3 * p7) + (1 * p8) + (9 * p9) + (7 * p10)
+    p11 = p11 % 10
+    pesel = pesel + str(p11)
+    return pesel
 
 @pytest.fixture(autouse=True)
 def run_around_tests():
@@ -37,6 +62,7 @@ def run_around_tests():
     # Code that will run after your test, for example:
     print("\nThis is the end of test case no _______________________________________________________________")
 
+
 def getresults():
     displaytext = driver.find_element_by_accessibility_id("CalculatorResults").text
     displaytext = displaytext.strip("Wyświetlana wartość to ")
@@ -44,10 +70,13 @@ def getresults():
     displaytext = displaytext.lstrip(' ')
     return displaytext
 
+
 class TestClass:
 
     def test_1addition(self):
         print("\n", wName, wSurname, "\t", mName, mSurname, "\n")
+        for i in range(110):
+            print(randomPesel("w"))
         driver.find_element_by_name("Jeden").click()
         driver.find_element_by_name("Plus").click()
         driver.find_element_by_name("Dwa").click()
