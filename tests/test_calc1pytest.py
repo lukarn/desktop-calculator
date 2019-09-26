@@ -4,7 +4,7 @@ import time
 import pytest
 from appium import webdriver
 
-import commons.methods
+from commons.methods import RandomPesel
 
 def setup_module(module, iii=int):
     """ setup any state specific to the execution of the given module."""
@@ -78,7 +78,7 @@ class TestClass:
     def test_1addition(self):
         print("\n", wName, wSurname, "\t", mName, mSurname, "\n")
         for i in range(110):
-            print(commons.methods.randomPesel("w"))
+            print(RandomPesel("w"))
         driver.find_element_by_name("Jeden").click()
         driver.find_element_by_name("Plus").click()
         driver.find_element_by_name("Dwa").click()

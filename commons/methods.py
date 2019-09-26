@@ -1,7 +1,7 @@
 import random
 
 
-def randomPesel(gender):
+def RandomPesel(gender):
     # birth date
     p1 = random.randint(3, 9)
     p2 = random.randint(0, 9)
