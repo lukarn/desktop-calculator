@@ -54,7 +54,7 @@ class TestClass:
     def test_1addition(self):
         print("\n", wName, wSurname, "\t", mName, mSurname, "\n")
         for i in range(110):
-            print(RandomPesel("w"))
+            print(randomPesel("w"))
         driver.find_element_by_name("Jeden").click()
         driver.find_element_by_name("Plus").click()
         driver.find_element_by_name("Dwa").click()
