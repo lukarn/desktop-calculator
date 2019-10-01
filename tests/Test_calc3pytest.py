@@ -7,7 +7,7 @@ from pywinauto import findbestmatch
 
 from commons.methods import *
 from commons.param import *
-
+from pages.Calc import *
 
 def setup_module():
     """ setup any state specific to the execution of the given module."""
@@ -20,13 +20,12 @@ def setup_module():
 def teardown_module():
     """ teardown any state that was previously setup with a setup_module
     method."""
-    awindow["Zamknij aplikację Kalkulator"].click()
+    # awindow["Zamknij aplikację Kalkulator"].click()
     print("\n===========test suite end================================================")
 
 
 # application
 app = Application(backend="uia").start("C:\Windows\System32\calc.exe")
-awindow = Desktop(backend="uia").Kalculator
 
 # other setup -> random man&woman
 wName = "Tola" + str(random.randint(1, 1000))
@@ -39,47 +38,32 @@ mSurname = "Tester" + str(random.randint(1, 1000))
 def run_around_tests():
     # Code before each test case
     print("\nThis is the begining of test case no _________________________________________________________")
-    awindow["Wyczyść wpis"].click()
+    # awindow["Wyczyść wpis"].click()
     yield
     # Code after each test case
     print("\nThis is the end of test case no _______________________________________________________________")
 
 
-def getresults():
-    calcResult = awindow['.*Wyświetlana wartość to.*'].texts()
-    calcResult = ''.join(calcResult)
-    calcResult = calcResult.strip("Wyświetlana wartość to ")
-    return calcResult
+# def getresults():
+#     calcResult = awindow['.*Wyświetlana wartość to.*'].texts()
+#     calcResult = ''.join(calcResult)
+#     calcResult = calcResult.strip("Wyświetlana wartość to ")
+#     return calcResult
 
 
 class Test_calc2pytest:
 
-    def test_1printConIds(self):
-        awindow.print_control_identifiers(depth=5)
+    # def test_1printConIds(self):
+    #     awindow.print_control_identifiers(depth=5)
 
     def test_2add(self):
-        awindow.Jeden.click()
-        awindow.Plus.click()
-        awindow.Trzy.click()
-        awindow["Równa się"].click()
-        getresults()
-        assert getresults() == "4", "test failed"
+        calc = Calc("Kalkulator")
+        calc.setButton("Jeden")
+        # awindow.Jeden.click()
+        # awindow.Plus.click()
+        # awindow.Trzy.click()
+        # awindow["Równa się"].click()
+        # getresults()
+        # assert getresults() == "4", "test failed"
         time.sleep(delay)
 
-    def test_3addPyWin(self):
-        awindow.window(auto_id='num1Button', class_name='Button').click()
-        awindow.Plus.click()
-        awindow.window(title='Trzy', control_type="Button").click()  # title = name
-        awindow["Równa się"].click()
-        getresults()
-        assert getresults() == "4", "test failed"
-        time.sleep(delay)
-
-    def test_3addPyWin(self):
-        awindow.window(auto_id='num1Button', class_name='Button').click()
-        awindow.Plus.click()
-        awindow.window(title='Trzy', control_type="Button").click()  # title = name
-        awindow["Równa się"].click()
-        getresults()
-        assert getresults() == "4", "test failed"
-        time.sleep(delay)
