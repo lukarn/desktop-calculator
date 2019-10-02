@@ -17,10 +17,12 @@ def setup_module():
     for i in range(2):
         print(randomPesel("w"))
 
+
 def teardown_module():
     """ teardown any state that was previously setup with a setup_module
     method."""
-    # awindow["Zamknij aplikację Kalkulator"].click()
+    calc = Calc("Kalkulator")
+    calc.setButton("Zamknij aplikację Kalkulator")
     print("\n===========test suite end================================================")
 
 
@@ -38,32 +40,34 @@ mSurname = "Tester" + str(random.randint(1, 1000))
 def run_around_tests():
     # Code before each test case
     print("\nThis is the begining of test case no _________________________________________________________")
-    # awindow["Wyczyść wpis"].click()
+    calc = Calc("Kalkulator")
+    calc.setButton("Wyczyść wpis")
     yield
     # Code after each test case
     print("\nThis is the end of test case no _______________________________________________________________")
 
 
-# def getresults():
-#     calcResult = awindow['.*Wyświetlana wartość to.*'].texts()
-#     calcResult = ''.join(calcResult)
-#     calcResult = calcResult.strip("Wyświetlana wartość to ")
-#     return calcResult
-
-
 class Test_calc2pytest:
 
-    # def test_1printConIds(self):
-    #     awindow.print_control_identifiers(depth=5)
+    def test_1printConIds(self):
+        calc = Calc("Kalkulator")
+        calc.getids(5)
+
+    def test_1add(self):
+        calc = Calc("Kalkulator")
+        calc.setButton("Jeden")
+        calc.setButton("Plus")
+        calc.setButton("num3Button")
+        calc.setButton("Równa się")
+        assert calc.getResult() == "4", "test failed"
+        time.sleep(delay)
 
     def test_2add(self):
         calc = Calc("Kalkulator")
         calc.setButton("Jeden")
-        # awindow.Jeden.click()
-        # awindow.Plus.click()
-        # awindow.Trzy.click()
-        # awindow["Równa się"].click()
-        # getresults()
-        # assert getresults() == "4", "test failed"
+        calc.setButton("Plus")
+        calc.setButton("Pięć")
+        calc.setButton("Równa się")
+        assert calc.getResult() == "6", "test failed"
         time.sleep(delay)
 

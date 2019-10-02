@@ -6,9 +6,25 @@ class Calc:
     def __init__(self, windowName):
         self.windowName = Desktop(backend="uia").window(best_match=windowName)
 
-    def setButton(self, buttonTitle):
+    def setButtonByTitle(self, buttonTitle):
         self.windowName.window(title=buttonTitle, control_type="Button").click()
 
-    # zrobić duży blok try który będzie próbować kliknąć w kilka różnych opcji - wystarczy, że jeden z nich będzie dobry to będzie ok;
-    # np try {self.windowName.window(title=buttonTitle, control_type="Button").click() ....}, try{self.windowName.window(class=buttonTitle, control_type="Button").click()}
-    # jeżeli już jakiś kliknie to kolejnych nie sprawdza
+    def setButton(self, buttonName):
+        try:
+            self.windowName.window(title=buttonName, control_type="Button").click()
+        except:
+            try:
+                self.windowName.window(auto_id=buttonName, class_name="Button").click()
+            except:
+                print("!!!!!!!No such button!!!!!!!!!")
+
+    def getResult(self):
+        calcResult = self.windowName.window(auto_id="CalculatorResults", control_type="Text").texts()
+        calcResult = ''.join(calcResult)
+        calcResult = calcResult.strip("Wyświetlana wartość to ")
+        return calcResult
+
+    def getids(self, level):
+        self.windowName.print_control_identifiers(depth=level)
+
+
