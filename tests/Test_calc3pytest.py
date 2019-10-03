@@ -22,7 +22,7 @@ def teardown_module():
     """ teardown any state that was previously setup with a setup_module
     method."""
     calc = Calc("Kalkulator")
-    calc.setButton("Zamknij aplikację Kalkulator")
+    calc.set_button("Zamknij aplikację Kalkulator")
     print("\n===========test suite end================================================")
 
 
@@ -41,7 +41,7 @@ def run_around_tests():
     # Code before each test case
     print("\nThis is the begining of test case no _________________________________________________________")
     calc = Calc("Kalkulator")
-    calc.setButton("Wyczyść wpis")
+    calc.set_button("Wyczyść wpis")
     yield
     # Code after each test case
     print("\nThis is the end of test case no _______________________________________________________________")
@@ -51,23 +51,32 @@ class Test_calc2pytest:
 
     def test_1printConIds(self):
         calc = Calc("Kalkulator")
-        calc.getids(5)
+        calc.get_ids(5)
 
     def test_1add(self):
         calc = Calc("Kalkulator")
-        calc.setButton("Jeden")
-        calc.setButton("Plus")
-        calc.setButton("num3Button")
-        calc.setButton("Równa się")
-        assert calc.getResult() == "4", "test failed"
+        calc.set_button("Jeden")
+        calc.set_button("Plus")
+        calc.set_button("num3Button")
+        calc.set_button("Równa się")
+        assert calc.get_result() == "4", "test failed"
         time.sleep(delay)
 
     def test_2add(self):
         calc = Calc("Kalkulator")
-        calc.setButton("Jeden")
-        calc.setButton("Plus")
-        calc.setButton("Pięć")
-        calc.setButton("Równa się")
-        assert calc.getResult() == "6", "test failed"
+        calc.set_button("Jeden")
+        calc.set_button("Plus")
+        calc.set_button("Pięć")
+        calc.set_button("Równa się")
+        assert calc.get_result() == "6", "test failed"
+        time.sleep(delay)
+
+    def test_3add(self):
+        calc = Calc("Kalkulator")
+        calc.click_1()
+        calc.click_plus()
+        calc.click_2()
+        calc.click_equal()
+        assert calc.get_result() == "3", "test failed"
         time.sleep(delay)
 
