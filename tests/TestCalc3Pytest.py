@@ -1,13 +1,12 @@
 import time
 
 import pytest
-from pywinauto import Desktop
 from pywinauto.application import Application
-from pywinauto import findbestmatch
 
 from commons.methods import *
 from commons.param import *
 from pages.Calc import *
+
 
 def setup_module():
     """ setup any state specific to the execution of the given module."""
@@ -27,7 +26,7 @@ def teardown_module():
 
 
 # application
-app = Application(backend="uia").start("C:\Windows\System32\calc.exe")
+app = Application(backend="uia").start("C:\\Windows\\System32\\calc.exe")
 
 # other setup -> random man&woman
 wName = "Tola" + str(random.randint(1, 1000))
@@ -35,11 +34,18 @@ wSurname = "Testerka" + str(random.randint(1, 1000))
 mName = "Tadek" + str(random.randint(1, 1000))
 mSurname = "Tester" + str(random.randint(1, 1000))
 
+# global no_test
+no_test = 0
+
 
 @pytest.fixture(autouse=True)
 def run_around_tests():
     # Code before each test case
-    print("\nThis is the begining of test case no _________________________________________________________")
+    global no_test
+    no_test = no_test + 1
+    # print("\nThis is the begining of test case no ", no_test, " ____________________________________________________")
+    print(
+        "\nThis is the begining of test case no {0} _________________________________________________".format(no_test))
     calc = Calc("Kalkulator")
     calc.set_button("Wyczyść wpis")
     yield
@@ -47,13 +53,13 @@ def run_around_tests():
     print("\nThis is the end of test case no _______________________________________________________________")
 
 
-class Test_calc2pytest:
+class TestCalc3Pytest:
 
-    def test_1printConIds(self):
+    def test_1print_con_ids(self):
         calc = Calc("Kalkulator")
         calc.get_ids(5)
 
-    def test_1add(self):
+    def test_2add(self):
         calc = Calc("Kalkulator")
         calc.set_button("Jeden")
         calc.set_button("Plus")
@@ -62,7 +68,7 @@ class Test_calc2pytest:
         assert calc.get_result() == "4", "test failed"
         time.sleep(delay)
 
-    def test_2add(self):
+    def test_3add(self):
         calc = Calc("Kalkulator")
         calc.set_button("Jeden")
         calc.set_button("Plus")
@@ -71,7 +77,7 @@ class Test_calc2pytest:
         assert calc.get_result() == "6", "test failed"
         time.sleep(delay)
 
-    def test_3add(self):
+    def test_4add(self):
         calc = Calc("Kalkulator")
         calc.click_1()
         calc.click_plus()
@@ -79,4 +85,3 @@ class Test_calc2pytest:
         calc.click_equal()
         assert calc.get_result() == "3", "test failed"
         time.sleep(delay)
-
