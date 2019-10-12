@@ -40,7 +40,7 @@ class Calc:
         return self.window_name.Plus
 
     def rownasie(self):
-        return self.window_name.window(title="Równa się", control_type="Button")
+        return self.window_name.child_window(title="Równa się", control_type="Button")
 
     # END OF LOCATORS !!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -49,21 +49,21 @@ class Calc:
         self.window_name = Desktop(backend="uia").window(best_match=window_name)
 
     def set_button_by_title(self, button_title):
-        self.window_name.window(title=button_title, control_type="Button").click()
+        self.window_name.child_window(title=button_title, control_type="Button").click()
 
     def set_button(self, button_name):
         try:
-            self.window_name.window(title=button_name, control_type="Button").click()
+            self.window_name.child_window(title=button_name, control_type="Button").click()
         except Exception as e1:
             logging.exception(e1)
             try:
-                self.window_name.window(auto_id=button_name, class_name="Button").click()
+                self.window_name.child_window(auto_id=button_name, class_name="Button").click()
             except Exception as e:
                 print("!!!!!!!No such button!!!!!!!!!")
                 logging.exception(e)
 
     def get_result(self):
-        result = self.window_name.window(auto_id="CalculatorResults", control_type="Text").texts()
+        result = self.window_name.child_window(auto_id="CalculatorResults", control_type="Text").texts()
         result = ''.join(result)
         result = result.strip("Wyświetlana wartość to ")
         return result
