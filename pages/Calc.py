@@ -66,6 +66,7 @@ class Calc:
         result = self.window_name.child_window(auto_id="CalculatorResults", control_type="Text").texts()
         result = ''.join(result)
         result = result.strip("Wyświetlana wartość to ")
+        result = result.replace(u'\xa0', u'')
         return result
 
     def get_ids(self, level):
