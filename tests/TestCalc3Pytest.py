@@ -1,4 +1,3 @@
-import datetime
 import json
 import time
 
@@ -11,8 +10,6 @@ from commons.methods import *
 from commons.param import *
 from pages.Calc import *
 
-import pyscreenshot
-
 
 def setup_module():
     """ setup any state specific to the execution of the given module."""
@@ -20,13 +17,11 @@ def setup_module():
     print("Random string data: ")
     print(wName, wSurname, "\t", mName, mSurname)
     for i in range(2):
-        print(randomPesel("w"))
+        print(random_pesel("w"))
     print("num1: " + data["num"])
     print(data["num1"])
     print(data["num1"][0])
-    x = datetime.datetime.now()
-    x = x.strftime("%Y") + "-" + x.strftime("%m") + "-" + x.strftime("%d") + "_" + x.strftime("%X")
-    print(x)
+    print(getdate())
 
 
 def teardown_module():
@@ -66,6 +61,12 @@ def run_around_tests():
     calc.set_button("Wyczyść wpis")
     yield
     # Code after each test case
+    # if request.node.rep_call.failed:
+    #     print("executing test failed", request.node.nodeid)
+    #     # grab fullscreen
+    #     im = pyscreenshot.grab()
+    #     # save image file
+    #     im.save("../screenshots/screenshot" + getdate() + ".png")
     print("\nThis is the end of test case no {0} _____________________________________________________".format(no_test))
 
 
@@ -160,10 +161,10 @@ class TestCalc3Pytest:
         # failure test
         calc = Calc("Kalkulator")
 
-        # grab fullscreen
-        im = pyscreenshot.grab()
-        # save image file
-        im.save("../screenshots/screenshot.png")
+        # # grab fullscreen
+        # im = pyscreenshot.grab()
+        # # save image file
+        # im.save("../screenshots/screenshot" + getdate() + ".png")
 
         assert calc.get_result() == data["add"][4], "test failed"
         time.sleep(delay)

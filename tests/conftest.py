@@ -1,2 +1,2 @@
-def pytest_report_header(config):
+def pytest_report_header():
     return "PROJECT HEADER TEST"

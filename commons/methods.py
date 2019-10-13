@@ -1,7 +1,8 @@
+import datetime
 import random
 
 
-def randomPesel(gender):
+def random_pesel(gender):
     # birth date
     p1 = random.randint(3, 9)
     p2 = random.randint(0, 9)
@@ -26,3 +27,10 @@ def randomPesel(gender):
     p11 = p11 % 10
     pesel = pesel + str(p11)
     return pesel
+
+
+def getdate():
+    x = datetime.datetime.now()
+    x = x.strftime("%Y") + "-" + x.strftime("%m") + "-" + x.strftime("%d") + "_" \
+        + x.strftime("%H") + "-" + x.strftime("%M") + "-" + x.strftime("%S")
+    return x
