@@ -1,6 +1,8 @@
+import json
 import time
 
 import pytest
+
 from pywinauto.application import Application
 
 from commons.methods import *
@@ -15,6 +17,9 @@ def setup_module():
     print(wName, wSurname, "\t", mName, mSurname)
     for i in range(2):
         print(randomPesel("w"))
+    print("num1: " + data["num"])
+    print(data["num1"])
+    print(data["num1"][0])
 
 
 def teardown_module():
@@ -37,20 +42,23 @@ mSurname = "Tester" + str(random.randint(1, 1000))
 # global no_test
 no_test = 0
 
+# jsondata import
+with open("../jsondata/add_test.json", "r") as read_file:
+    data = json.load(read_file)
+
 
 @pytest.fixture(autouse=True)
 def run_around_tests():
     # Code before each test case
     global no_test
     no_test = no_test + 1
-    # print("\nThis is the begining of test case no ", no_test, " ____________________________________________________")
     print(
         "\nThis is the begining of test case no {0} _________________________________________________".format(no_test))
     calc = Calc("Kalkulator")
     calc.set_button("Wyczyść wpis")
     yield
     # Code after each test case
-    print("\nThis is the end of test case no _______________________________________________________________")
+    print("\nThis is the end of test case no {0} _____________________________________________________".format(no_test))
 
 
 class TestCalc3Pytest:
@@ -78,6 +86,17 @@ class TestCalc3Pytest:
         time.sleep(delay)
 
     def test_4add(self):
+        calc = Calc("Kalkulator")
+        calc.click_1()
+        calc.click_plus()
+        calc.click_2()
+        calc.click_equal()
+        assert calc.get_result() == "3", "test failed"
+        time.sleep(delay)
+
+    def test_5add(self):
+        # a = True
+        # b = False
         calc = Calc("Kalkulator")
         calc.click_1()
         calc.click_plus()
