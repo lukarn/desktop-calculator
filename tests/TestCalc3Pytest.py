@@ -6,16 +6,6 @@ from commons.param import *
 from pages.Calc import *
 
 
-# other setup -> random man&woman
-# data used in other tests - here just exercises
-wName = "Tola" + str(random.randint(1, 1000))
-wSurname = "Testerka" + str(random.randint(1, 1000))
-wPesel = random_pesel("w")
-mName = "Tadek" + str(random.randint(1, 1000))
-mSurname = "Tester" + str(random.randint(1, 1000))
-mPesel = random_pesel("m")
-
-
 # jsondata import
 with open("../jsondata/add_test.json", "r") as read_file:
     data = json.load(read_file)
@@ -111,5 +101,9 @@ class TestCalc3Pytest:
     def test_11add(self):
         # failure test
         calc = Calc("Kalkulator")
+        send_keys(random_pesel("m"))
+        calc.click_plus()
+        send_keys(random_pesel("w"))
+        calc.click_equal()
         assert calc.get_result() == data["add"][4], "test failed"
         time.sleep(delay)
