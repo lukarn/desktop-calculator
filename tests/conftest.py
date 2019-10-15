@@ -1,5 +1,7 @@
 import pyscreenshot
 import pytest
+from pywinauto import Application
+from pywinauto.keyboard import send_keys
 
 from commons.methods import getdate
 from pages.Calc import *
@@ -36,3 +38,15 @@ def run_around_tests():
     yield
     # Code after each test case
     print("\nThis is the end of test case no {0} _____________________________________________________".format(no_test))
+
+
+@pytest.fixture(scope="module", autouse=True)
+def setup_teardown_module():
+    print("\n===========test suite beginning=========================================")
+    Application(backend="uia").start("C:\\Windows\\System32\\calc.exe")
+    yield
+    Desktop(backend="uia").window(best_match="Kalkulator").set_focus()
+    send_keys('%{F4}')
+    # calc = Calc("Kalkulator")
+    # calc.set_button("Zamknij aplikację Kalkulator")
+    print("\n===========test suite end================================================")
