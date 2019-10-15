@@ -132,3 +132,4 @@ dmypy.json
 /.idea/misc.xml
 /.idea/cw1.iml
 /.idea/.gitignore
+/screenshots/*.png
