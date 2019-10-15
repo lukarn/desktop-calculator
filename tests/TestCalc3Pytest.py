@@ -50,24 +50,18 @@ with open("../jsondata/add_test.json", "r") as read_file:
     data = json.load(read_file)
 
 
-@pytest.fixture(autouse=True)
-def run_around_tests():
-    # Code before each test case
-    global no_test
-    no_test = no_test + 1
-    print(
-        "\nThis is the begining of test case no {0} _________________________________________________".format(no_test))
-    calc = Calc("Kalkulator")
-    calc.set_button("Wyczyść wpis")
-    yield
-    # Code after each test case
-    # if request.node.rep_call.failed:
-    #     print("executing test failed", request.node.nodeid)
-    #     # grab fullscreen
-    #     im = pyscreenshot.grab()
-    #     # save image file
-    #     im.save("../screenshots/screenshot" + getdate() + ".png")
-    print("\nThis is the end of test case no {0} _____________________________________________________".format(no_test))
+# @pytest.fixture(autouse=True)
+# def run_around_tests():
+#     # Code before each test case
+#     global no_test
+#     no_test = no_test + 1
+#     print(
+#         "\nThis is the begining of test case no {0} _________________________________________________".format(no_test))
+#     calc = Calc("Kalkulator")
+#     calc.set_button("Wyczyść wpis")
+#     yield
+#     # Code after each test case
+#     print("\nThis is the end of test case no {0} _____________________________________________________".format(no_test))
 
 
 class TestCalc3Pytest:
