@@ -1,6 +1,7 @@
 import logging
 
 from pywinauto import Desktop
+from pywinauto.keyboard import send_keys
 
 
 class Calc:
@@ -108,3 +109,10 @@ class Calc:
 
     def click_equal(self):
         self.rownasie().click()
+
+    def add_2(self, num1, num2):
+        send_keys(num1)
+        self.click_plus()
+        send_keys(num2)
+        self.rownasie().click()
+        return self.get_result()

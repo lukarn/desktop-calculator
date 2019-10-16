@@ -1,7 +1,6 @@
 import pyscreenshot
 import pytest
 from pywinauto import Application
-from pywinauto.keyboard import send_keys
 
 from commons.methods import getdate
 from pages.Calc import *
