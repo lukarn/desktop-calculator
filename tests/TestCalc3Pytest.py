@@ -8,6 +8,8 @@ from pages.Calc import *
 # jsondata import
 with open("../jsondata/add_test.json", "r") as read_file:
     data = json.load(read_file)
+with open("../jsondata/add_test_long.json", "r") as read_file:
+    data_long = json.load(read_file)
 
 
 # page object for all tests
@@ -83,3 +85,7 @@ class TestCalc3Pytest:
         send_keys(random_pesel("w"))
         calc.click_equal()
         assert calc.get_result() == data["add"][4], "test failed"
+
+    def test_12add(self):
+        for i in range(0, 29):
+            assert calc.add_2(data_long["num1"][i], data_long["num2"][i]) == data_long["add"][i], "test failed"
