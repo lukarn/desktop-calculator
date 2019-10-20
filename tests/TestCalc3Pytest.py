@@ -1,16 +1,20 @@
 import json
 import time
+import csv
 from commons.methods import *
 from commons.param import *
 from pages.Calc import *
 
 
-# jsondata import
-with open("../jsondata/add_test.json", "r") as read_file:
+# testdata import
+with open("../testdata/add_test.json", "r") as read_file:
     data = json.load(read_file)
-with open("../jsondata/add_test_long.json", "r") as read_file:
+with open("../testdata/add_test_long.json", "r") as read_file:
     data_long = json.load(read_file)
 
+with open("../testdata/add.csv", "r") as f:
+    reader = csv.reader(f)
+    add_csv = list(reader)
 
 # page object for all tests
 calc = Calc("Kalkulator")
@@ -87,5 +91,10 @@ class TestCalc3Pytest:
         assert calc.get_result() == data["add"][4], "test failed"
 
     def test_12add(self):
-        for i in range(0, 29):
+        for i in range(0, 2):  # (0, 29) max
             assert calc.add_2(data_long["num1"][i], data_long["num2"][i]) == data_long["add"][i], "test failed"
+
+    def test_13add(self):
+        for i in range(0, 29):  # (0, 29) max
+            print(add_csv[i][0], "+", add_csv[i][1], "= ", add_csv[i][2])
+            assert calc.add_2(add_csv[i][0], add_csv[i][1]) == add_csv[i][2], "test failed"
