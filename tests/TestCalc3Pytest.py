@@ -6,7 +6,9 @@ from commons.param import *
 from pages.Calc import *
 
 
-# testdata import
+# desktop test exercises - application: Kalkulator (OS Win10 PL)
+
+# test data import
 with open("../testdata/add_test.json", "r") as read_file:
     data = json.load(read_file)
 with open("../testdata/add_test_long.json", "r") as read_file:

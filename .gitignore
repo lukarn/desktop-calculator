@@ -133,3 +133,4 @@ dmypy.json
 /.idea/cw1.iml
 /.idea/.gitignore
 /screenshots/*.png
+/testdata/losowa30.ods
